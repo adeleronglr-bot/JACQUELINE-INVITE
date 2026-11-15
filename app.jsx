@@ -9,7 +9,7 @@ const inviteData = {
   venue: "Flat E, 3/F, Block 1, Grand Palisades",
   addressEn: "FLAT E, 3/F, BLOCK 1, GRAND PALISADES, NO. 8 SHAN YIN ROAD, TAI PO, NEW TERRITORIES, HONG KONG",
   addressZh: "新界山贤路8号大埔宝马山1座3E",
-  dressCode: "Romantic lavender tones are perfect.",
+  dressCode: "Comfy party clothes in Lavender are perfect.",
   activities: [
     { emoji: "🎲", time: "14:45 - 15:45", title: "PINDOU", text: "A fun game session to kick off the party." },
     { emoji: "🎬", time: "15:45 - 16:45", title: "MOVIE", text: "A cosy movie break for everyone to relax together." },
@@ -278,6 +278,48 @@ function App() {
     return value ? value.trim() : "";
   }, []);
 
+  const [rsvpSubmitted, setRsvpSubmitted] = useState(false);
+  const [childName, setChildName] = useState("");
+  const [attending, setAttending] = useState(null);
+  const [allergies, setAllergies] = useState("");
+  const [arrangement, setArrangement] = useState(null);
+  const [notes, setNotes] = useState("");
+
+  const formValid = attending !== null;
+
+  function buildFormRsvpText() {
+    const lines = [
+      `Hello ${inviteData.hostName}, here is my RSVP for ${inviteData.girlName}'s birthday party.`,
+      ""
+    ];
+    if (guestName) lines.push(`Invited guest: ${guestName}`);
+    lines.push(`Child's name: ${childName || "-"}`);
+    lines.push(`Will your child attend the party: ${attending === "yes" ? "Yes" : "No"}`);
+    if (attending === "yes") {
+      lines.push(`Food/nut allergies or special dietary needs: ${allergies.trim() || "None"}`);
+      lines.push(`Arrangement: ${arrangement === "stay" ? "Parent will stay" : arrangement === "dropoff" ? "Drop-off only" : "-"}`);
+    }
+    if (notes.trim()) lines.push(`Anything else we should know: ${notes.trim()}`);
+    return lines.join("\n");
+  }
+
+  function submitRsvp() {
+    if (!formValid) return;
+    const phone = getWhatsappNumber();
+    const text = encodeURIComponent(buildFormRsvpText());
+    window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
+    setRsvpSubmitted(true);
+  }
+
+  function resetRsvp() {
+    setRsvpSubmitted(false);
+    setChildName("");
+    setAttending(null);
+    setAllergies("");
+    setArrangement(null);
+    setNotes("");
+  }
+
   useEffect(() => {
     const refs = Object.entries(sections);
     const observer = new IntersectionObserver(
@@ -313,28 +355,6 @@ function App() {
     const digits = inviteData.hostPhone.replace(/\D/g, "");
     if (digits.length === 8) return `852${digits}`;
     return digits;
-  }
-
-  function buildRsvpText() {
-    const lines = [
-      `Hello ${inviteData.hostName}, I would like to RSVP for ${inviteData.girlName}'s birthday party.`,
-      ""
-    ];
-    if (guestName) lines.push(`Invited guest: ${guestName}`);
-    lines.push(
-      "Child's name:",
-      "Will attend: Yes / No",
-      "Food allergies or dietary needs:",
-      "Arrangement: Parent will stay / Drop-off only",
-      "Anything else we should know:"
-    );
-    return lines.join("\n");
-  }
-
-  function openRsvpWhatsapp() {
-    const phone = getWhatsappNumber();
-    const text = encodeURIComponent(buildRsvpText());
-    window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
   }
 
   async function shareInvite() {
@@ -427,7 +447,6 @@ function App() {
           </div>
 
           <div className="hero-actions">
-            <button className="rsvp-btn" onClick={openRsvpWhatsapp}>RSVP NOW</button>
             <button className="share-btn" onClick={shareInvite}>Share on WhatsApp</button>
             <button className="ghost-btn" onClick={copyLink}>Copy Link</button>
           </div>
@@ -437,19 +456,107 @@ function App() {
       <section className="section" ref={sections.rsvp} data-section="rsvp">
         <div className="section-title">
           <div>
-            <h2>RSVP</h2>
-            <p>Please let us know if your child can join the celebration.</p>
+            <h2>Coming to the party?</h2>
+            <p>Let us know who's coming to celebrate!</p>
           </div>
           <div className="section-icon">💌</div>
         </div>
-        <div className="notice-card rsvp-card">
-          <strong>RSVP - Jacqueline's Birthday Party</strong>
-          <span>{inviteData.rsvpHint}</span>
-          <div className="rsvp-actions">
-            <button className="cta-btn" onClick={openRsvpWhatsapp}>Reply on WhatsApp</button>
-            <button className="mini-btn" onClick={copyLink}>Copy Invite Link</button>
+
+        {rsvpSubmitted ? (
+          <div className="rsvp-result">
+            <div className="rsvp-result-icon">🌸</div>
+            <strong>Thank you for your reply!</strong>
+            <span>Your RSVP has been sent to {inviteData.hostName} via WhatsApp. We can't wait to celebrate with you!</span>
+            <div className="rsvp-actions">
+              <button className="mini-btn" onClick={resetRsvp}>Submit another reply</button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <form className="rsvp-form" onSubmit={e => { e.preventDefault(); submitRsvp(); }}>
+            <label className="field">
+              <span className="field-label">Child's Name</span>
+              <input
+                type="text"
+                className="field-input"
+                value={childName}
+                onChange={e => setChildName(e.target.value)}
+                placeholder="Enter child's name"
+                autoComplete="given-name"
+              />
+            </label>
+
+            <div className="field">
+              <span className="field-label">Will your child attend the party?</span>
+              <div className="attend-options">
+                <button
+                  type="button"
+                  className={`attend-btn ${attending === "yes" ? "active" : ""}`}
+                  onClick={() => setAttending("yes")}
+                >
+                  Yes ✨
+                </button>
+                <button
+                  type="button"
+                  className={`attend-btn ${attending === "no" ? "active" : ""}`}
+                  onClick={() => setAttending("no")}
+                >
+                  No
+                </button>
+              </div>
+            </div>
+
+            {attending === "yes" && (
+              <>
+                <label className="field">
+                  <span className="field-label">Any food/nut allergies or special dietary needs?</span>
+                  <input
+                    type="text"
+                    className="field-input"
+                    value={allergies}
+                    onChange={e => setAllergies(e.target.value)}
+                    placeholder="e.g. peanut allergy, vegetarian, gluten-free..."
+                  />
+                </label>
+
+                <div className="field">
+                  <span className="field-label">Arrangement (drop-off / stay)</span>
+                  <div className="attend-options">
+                    <button
+                      type="button"
+                      className={`attend-btn ${arrangement === "stay" ? "active" : ""}`}
+                      onClick={() => setArrangement("stay")}
+                    >
+                      Parent will stay
+                    </button>
+                    <button
+                      type="button"
+                      className={`attend-btn ${arrangement === "dropoff" ? "active" : ""}`}
+                      onClick={() => setArrangement("dropoff")}
+                    >
+                      Drop-off only
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+
+            <label className="field">
+              <span className="field-label">Anything else we should know? <em>(optional)</em></span>
+              <textarea
+                className="field-input field-textarea"
+                value={notes}
+                onChange={e => setNotes(e.target.value)}
+                placeholder="A little note for us..."
+                rows={4}
+              />
+            </label>
+
+            <button type="submit" className="submit-btn" disabled={!formValid}>
+              Submit Reply
+            </button>
+            <p className="form-note">Your reply will be sent to {inviteData.hostName} on WhatsApp.</p>
+          </form>
+        )}
       </section>
 
       <section className="section" ref={sections.details} data-section="details">
@@ -529,10 +636,6 @@ function App() {
             <div className="contact-card">
               <strong>Address</strong>
               <span>{inviteData.addressEn}<br />{inviteData.addressZh}</span>
-            </div>
-            <div className="contact-card">
-              <strong>RSVP</strong>
-              <span>{inviteData.rsvpText}<br />Contact: {inviteData.hostName} / {inviteData.hostPhone}</span>
             </div>
           </div>
 
