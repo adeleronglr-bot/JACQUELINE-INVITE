@@ -1,0 +1,2006 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jacqueline's Birthday Invitation</title>
+  <meta name="description" content="A mobile-friendly birthday invitation page that can be shared through WhatsApp.">
+  <style>
+:root {
+  --bg: #fff8fb;
+  --bg-2: #fdf5ff;
+  --card: #fffdfd;
+  --card-soft: #fff4fb;
+  --card-lilac: #f7efff;
+  --text: #442c52;
+  --muted: #826c90;
+  --pink: #ff79b6;
+  --pink-2: #ffb2d6;
+  --purple: #9b78ff;
+  --purple-2: #d8c5ff;
+  --cream: #fff2d6;
+  --yellow: #ffd46c;
+  --dark: #25172d;
+  --line: rgba(150, 112, 187, 0.16);
+  --shadow: 0 20px 40px rgba(214, 167, 208, 0.28);
+  --shadow-strong: 0 24px 55px rgba(187, 138, 202, 0.34);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(225, 206, 255, 0.62), transparent 28%),
+    radial-gradient(circle at 90% 15%, rgba(216, 197, 255, 0.66), transparent 26%),
+    linear-gradient(180deg, #fbf7ff 0%, #f6efff 48%, #faf4ff 100%);
+}
+
+body { min-height: 100vh; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+.invite-app {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 24px 20px 110px;
+  position: relative;
+}
+
+.bg-stars,
+.bg-stars::before,
+.bg-stars::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22240%22%20height%3D%22240%22%20viewBox%3D%220%200%20240%20240%22%3E%0A%20%20%3Crect%20width%3D%22240%22%20height%3D%22240%22%20fill%3D%22%23f8f1ff%22/%3E%0A%20%20%3Cg%20opacity%3D%220.35%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M54%2034c8-7%2021-8%2029%201%208-9%2021-8%2029-1%208%208%208%2021%200%2029L83%2092%2054%2063c-8-8-8-21%200-29Z%22%20fill%3D%22%23d9c4ff%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%2283%22%20cy%3D%2250%22%20r%3D%225%22%20fill%3D%22%23fff9ff%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M176%2039c6-4%2014-5%2020-1%206-4%2014-3%2020%202-2%209-10%2014-20%2015-8%2010-19%2014-29%2011%201-10%205-19%209-27Z%22%20fill%3D%22%23c9b4ff%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M41%20146c7-6%2017-7%2024%200%207-7%2017-6%2024%200-1%2011-11%2020-24%2020-12%200-22-9-24-20Z%22%20fill%3D%22%23b998ff%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M40%20145c4%203%209%205%2013%205s9-2%2013-5%22%20stroke%3D%22%237f67d6%22%20stroke-width%3D%222%22%20fill%3D%22none%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M186%20146c8%200%2015%207%2015%2015%200%205-3%209-6%2012l-18%2018-18-18c-3-3-6-7-6-12%200-8%207-15%2015-15%204%200%207%201%209%204%202-3%205-4%209-4Z%22%20fill%3D%22%23f7a7d8%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22177%22%20cy%3D%22160%22%20r%3D%224%22%20fill%3D%22%23fff%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22171%22%20cy%3D%22108%22%20r%3D%224%22%20fill%3D%22%23f0e3ff%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22181%22%20cy%3D%22113%22%20r%3D%224%22%20fill%3D%22%23e0d0ff%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%2269%22%20cy%3D%22204%22%20r%3D%225%22%20fill%3D%22%23ebddff%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22117%22%20cy%3D%22196%22%20r%3D%224%22%20fill%3D%22%23e6d8ff%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M104%20120c4-7%2014-8%2020-2%206-6%2016-5%2020%202-4%207-12%2010-20%2010-8%200-16-3-20-10Z%22%20fill%3D%22%23ccb7ff%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M107%20120c3-3%206-4%209-4%203%200%206%201%208%204%202-3%205-4%208-4%203%200%206%201%209%204%22%20stroke%3D%22%238a70de%22%20stroke-width%3D%222%22%20fill%3D%22none%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M23%2082c5-3%2011-3%2016%200%205-3%2011-2%2015%202-2%208-9%2012-15%2013-6%206-13%208-19%206%201-7%202-14%203-21Z%22%20fill%3D%22%23e6d8ff%22/%3E%0A%20%20%3C/g%3E%0A%3C/svg%3E%0A"),
+    radial-gradient(circle, rgba(255,255,255,0.95) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(255, 121, 182, 0.65) 0 1px, transparent 1.7px),
+    radial-gradient(circle, rgba(155, 120, 255, 0.55) 0 1px, transparent 1.7px);
+  background-size: 240px 240px, 180px 180px, 220px 220px, 280px 280px;
+  background-position: 0 0, 10px 20px, 90px 110px, 160px 70px;
+  opacity: 0.5;
+}
+
+.bg-stars::before {
+  transform: translateY(48px);
+  opacity: 0.26;
+}
+
+.bg-stars::after {
+  transform: translateY(-32px);
+  opacity: 0.18;
+}
+
+.dream-border {
+  position: absolute;
+  inset: 8px 6px 92px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dream-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 36px;
+  border: 2px solid rgba(171, 145, 235, 0.28);
+  box-shadow:
+    inset 0 0 0 8px rgba(255,255,255,0.55),
+    inset 0 0 0 10px rgba(220, 203, 255, 0.52),
+    0 18px 40px rgba(195, 175, 228, 0.18);
+}
+
+.dream-border::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 28px;
+  border: 1px dashed rgba(155, 120, 255, 0.34);
+}
+
+.bg-balloons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-balloon,
+.frame-balloon {
+  position: absolute;
+  width: 32px;
+  height: 42px;
+  border-radius: 50% 50% 48% 48%;
+  background: linear-gradient(180deg, #b79aff, #8c68f5 58%, #d2c0ff 100%);
+  box-shadow:
+    inset -6px -10px 10px rgba(90, 65, 172, 0.22),
+    inset 8px 8px 10px rgba(255, 255, 255, 0.42),
+    0 10px 18px rgba(181, 159, 230, 0.28);
+}
+
+.bg-balloon::before,
+.frame-balloon::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 10px;
+  height: 8px;
+  margin-left: -5px;
+  background: #8967ee;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+.bg-balloon::after,
+.frame-balloon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 38px;
+  width: 1px;
+  height: 34px;
+  margin-left: -0.5px;
+  background: linear-gradient(180deg, rgba(132, 110, 204, 0.55), rgba(132, 110, 204, 0.02));
+}
+
+.bg-balloon {
+  opacity: 0.24;
+}
+
+.bg-balloon-1 { top: 132px; left: 12px; transform: scale(0.92) rotate(-8deg); }
+.bg-balloon-2 { top: 258px; right: 18px; transform: scale(1.08) rotate(8deg); }
+.bg-balloon-3 { top: 468px; left: 28px; transform: scale(0.86) rotate(10deg); }
+.bg-balloon-4 { top: 802px; right: 28px; transform: scale(0.92) rotate(-6deg); }
+.bg-balloon-5 { top: 1120px; left: 18px; transform: scale(1) rotate(5deg); }
+
+.frame-corner {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 34%, #fefcff 0 8px, transparent 9px),
+    radial-gradient(circle at 48% 28%, #d9c6ff 0 9px, transparent 10px),
+    radial-gradient(circle at 62% 42%, #f4b6da 0 8px, transparent 9px),
+    radial-gradient(circle at 46% 56%, #cab0ff 0 10px, transparent 11px),
+    radial-gradient(circle at 30% 62%, #efe3ff 0 9px, transparent 10px);
+  filter: drop-shadow(0 8px 14px rgba(193, 174, 229, 0.32));
+}
+
+.frame-corner.tl { top: -8px; left: -4px; }
+.frame-corner.tr { top: -8px; right: -4px; }
+.frame-corner.bl { bottom: -4px; left: -4px; }
+.frame-corner.br { bottom: -4px; right: -4px; }
+
+.frame-butterfly,
+.frame-bow,
+.frame-skull {
+  position: absolute;
+  filter: drop-shadow(0 6px 12px rgba(182, 161, 221, 0.32));
+}
+
+.frame-butterfly {
+  width: 34px;
+  height: 24px;
+}
+
+.frame-butterfly::before,
+.frame-butterfly::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  width: 16px;
+  height: 18px;
+  background: linear-gradient(180deg, #9d84ff, #d6c5ff);
+  border: 1px solid rgba(108, 85, 179, 0.18);
+}
+
+.frame-butterfly::before {
+  left: 0;
+  border-radius: 70% 30% 70% 30%;
+  transform: rotate(-20deg);
+}
+
+.frame-butterfly::after {
+  right: 0;
+  border-radius: 30% 70% 30% 70%;
+  transform: rotate(20deg);
+}
+
+.frame-butterfly.f1 { top: 18px; left: 84px; transform: rotate(-18deg); }
+.frame-butterfly.f2 { top: 26px; right: 84px; transform: rotate(14deg); }
+.frame-butterfly.f3 { bottom: 122px; left: 12px; transform: rotate(-26deg) scale(0.9); }
+.frame-butterfly.f4 { bottom: 168px; right: 10px; transform: rotate(24deg) scale(0.92); }
+.frame-butterfly.f5 { bottom: 28px; left: 50%; margin-left: -17px; transform: rotate(8deg); }
+
+.frame-balloon.fb1 { top: 18px; left: 84px; transform: scale(1.08) rotate(-8deg); }
+.frame-balloon.fb2 { top: 24px; right: 84px; transform: scale(1.04) rotate(7deg); }
+.frame-balloon.fb3 { top: 196px; left: 10px; transform: scale(0.9) rotate(-12deg); }
+.frame-balloon.fb4 { top: 236px; right: 6px; transform: scale(0.94) rotate(10deg); }
+.frame-balloon.fb5 { bottom: 162px; left: 10px; transform: scale(0.96) rotate(-8deg); }
+.frame-balloon.fb6 { bottom: 182px; right: 12px; transform: scale(1) rotate(9deg); }
+
+.frame-bow {
+  width: 36px;
+  height: 24px;
+}
+
+.frame-bow::before,
+.frame-bow::after,
+.frame-bow span {
+  content: "";
+  position: absolute;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(180deg, #23172d, #5b4478);
+}
+
+.frame-bow::before {
+  left: 2px;
+  clip-path: polygon(0 50%, 100% 0, 82% 50%, 100% 100%);
+}
+
+.frame-bow::after {
+  right: 2px;
+  clip-path: polygon(0 0, 100% 50%, 0 100%, 18% 50%);
+}
+
+.frame-bow.b1 { top: 90px; left: 8px; }
+.frame-bow.b2 { top: 86px; right: 8px; }
+
+.frame-skull {
+  width: 24px;
+  height: 24px;
+  border-radius: 50% 50% 40% 40%;
+  background: linear-gradient(180deg, #201629, #120d18);
+}
+
+.frame-skull::before,
+.frame-skull::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  top: 8px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.frame-skull::before { left: 6px; }
+.frame-skull::after { right: 6px; }
+
+.frame-skull.s1 { bottom: 70px; left: 18px; }
+.frame-skull.s2 { bottom: 70px; right: 18px; }
+
+.hero {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-shell {
+  position: relative;
+  padding: 20px 18px 18px;
+  border-radius: 34px;
+  background: linear-gradient(180deg, #fffdfd 0%, #fff6fb 56%, #fff2f8 100%);
+  border: 1px solid rgba(255,255,255,0.9);
+  box-shadow: var(--shadow-strong);
+  transform: perspective(1200px) rotateX(1.2deg);
+}
+
+.hero-shell::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.45));
+  border: 1px solid rgba(255,255,255,0.9);
+  z-index: 0;
+}
+
+.hero-shell::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: -10px;
+  height: 30px;
+  border-radius: 0 0 30px 30px;
+  background: linear-gradient(180deg, rgba(208, 170, 224, 0.42), rgba(208, 170, 224, 0.08));
+  filter: blur(10px);
+  z-index: -1;
+}
+
+.hero-ribbon {
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  right: 18px;
+  z-index: 2;
+  padding: 10px 16px;
+  text-align: center;
+  color: white;
+  font-weight: 800;
+  border-radius: 16px;
+  background: linear-gradient(180deg, var(--purple), #7e59ea);
+  box-shadow: 0 10px 20px rgba(155, 120, 255, 0.28);
+}
+
+.hero-top,
+.hero-grid,
+.hero-actions {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 16px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--card-lilac);
+  border: 1px solid rgba(155, 120, 255, 0.16);
+  color: #7347d8;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.music-btn,
+.rsvp-btn,
+.share-btn,
+.ghost-btn,
+.cta-btn,
+.tab-btn,
+.mini-btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 18px;
+  transition: transform .18s ease, opacity .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.music-btn:active,
+.rsvp-btn:active,
+.share-btn:active,
+.ghost-btn:active,
+.cta-btn:active,
+.tab-btn:active,
+.mini-btn:active {
+  transform: scale(0.97);
+}
+
+.music-btn {
+  min-height: 42px;
+  padding: 0 12px;
+  background: linear-gradient(180deg, #fff7fb, #f5ebff);
+  color: var(--text);
+  border: 1px solid rgba(155, 120, 255, 0.2);
+  box-shadow: 0 10px 20px rgba(229, 201, 239, 0.35);
+}
+
+.hero-grid {
+  display: block;
+  position: relative;
+  min-height: auto;
+}
+
+.hero-copy {
+  padding-right: 0;
+}
+
+.eyebrow {
+  color: #b55cb0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin: 10px 0 8px;
+  font-size: 35px;
+  line-height: 1.04;
+  color: #35223f;
+}
+
+.hero-title span {
+  color: #8a58f2;
+}
+
+.hero-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  font-size: 28px;
+}
+
+.hero-name {
+  color: #35223f;
+  letter-spacing: 0.04em;
+}
+
+.hero-turning {
+  color: #8a58f2;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.hero-age {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #b28eff, #8e67f5);
+  color: #fff;
+  box-shadow: 0 10px 18px rgba(143, 105, 244, 0.24);
+}
+
+.hero-subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.pill-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.pill {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #fff, #fff4fb);
+  border: 1px solid rgba(255, 121, 182, 0.18);
+  color: #815d8d;
+  box-shadow: 0 8px 18px rgba(244, 206, 230, 0.28);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.hero-art {
+  min-height: 320px;
+  position: relative;
+  border-radius: 32px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 56% 14%, rgba(255,255,255,0.98), rgba(255,255,255,0.42) 18%, transparent 34%),
+    radial-gradient(circle at 25% 68%, rgba(217, 192, 255, 0.42), transparent 28%),
+    radial-gradient(circle at 78% 70%, rgba(201, 181, 255, 0.34), transparent 26%),
+    linear-gradient(180deg, #fdfbff 0%, #f4edff 52%, #f8f1ff 100%);
+  border: 1px solid rgba(155, 120, 255, 0.14);
+  box-shadow: inset 0 10px 18px rgba(255,255,255,0.68), inset 0 -10px 18px rgba(230, 214, 244, 0.3);
+}
+
+.hero-art::after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 10px;
+  height: 20px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(191, 146, 214, 0.35), rgba(191, 146, 214, 0.04) 70%);
+}
+
+.wisteria {
+  position: absolute;
+  top: -4px;
+  width: 64px;
+  height: 150px;
+  background:
+    radial-gradient(circle at 50% 22px, rgba(171, 143, 243, 0.95) 0 10px, transparent 11px),
+    radial-gradient(circle at 38% 44px, rgba(189, 162, 255, 0.88) 0 10px, transparent 11px),
+    radial-gradient(circle at 62% 68px, rgba(214, 194, 255, 0.9) 0 11px, transparent 12px),
+    radial-gradient(circle at 42% 92px, rgba(177, 145, 247, 0.84) 0 10px, transparent 11px),
+    radial-gradient(circle at 54% 116px, rgba(205, 188, 255, 0.88) 0 10px, transparent 11px);
+  filter: drop-shadow(0 8px 12px rgba(179, 155, 223, 0.35));
+  opacity: 0.95;
+}
+
+.wisteria::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 2px;
+  height: 152px;
+  background: linear-gradient(180deg, rgba(125, 104, 149, 0.5), rgba(125, 104, 149, 0.02));
+}
+
+.wisteria-left { left: 6px; }
+.wisteria-mid { left: 50%; transform: translateX(-50%) scale(1.12); }
+.wisteria-right { right: 8px; transform: scale(0.95); }
+
+.dream-glow {
+  position: absolute;
+  inset: 8px 14px 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.85), rgba(255,255,255,0.15) 45%, transparent 72%);
+  filter: blur(6px);
+}
+
+.butterfly {
+  position: absolute;
+  width: 46px;
+  height: 34px;
+  opacity: 0.92;
+  filter: drop-shadow(0 8px 16px rgba(160, 138, 214, 0.22));
+}
+
+.butterfly::before,
+.butterfly::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(180deg, #9d83ff, #b49cff 55%, #e0d1ff);
+  border: 1px solid rgba(95, 74, 155, 0.22);
+}
+
+.butterfly::before {
+  left: 0;
+  border-radius: 70% 30% 70% 30%;
+  transform: rotate(-22deg);
+}
+
+.butterfly::after {
+  right: 0;
+  border-radius: 30% 70% 30% 70%;
+  transform: rotate(22deg);
+}
+
+.butterfly-a { top: 42px; left: 14px; transform: rotate(-18deg) scale(1.02); }
+.butterfly-b { top: 96px; right: 12px; transform: rotate(16deg) scale(0.94); }
+.butterfly-c { top: 144px; left: 24px; transform: rotate(8deg) scale(0.84); }
+.butterfly-d { top: 38px; right: 44px; transform: rotate(28deg) scale(0.78); }
+
+.girl-scene {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 10px;
+  top: 86px;
+}
+
+.bench-back,
+.bench-seat {
+  position: absolute;
+  left: 12px;
+  background: linear-gradient(180deg, #b78e72, #8e654b);
+  box-shadow: 0 12px 18px rgba(124, 92, 73, 0.22);
+}
+
+.bench-back {
+  width: 84px;
+  height: 88px;
+  bottom: 58px;
+  border-radius: 12px 12px 0 8px;
+}
+
+.bench-seat {
+  width: 108px;
+  height: 24px;
+  bottom: 46px;
+  left: 20px;
+  border-radius: 6px 14px 12px 12px;
+}
+
+.girl-dress {
+  position: absolute;
+  left: 92px;
+  bottom: 26px;
+  width: 106px;
+  height: 130px;
+  border-radius: 46% 46% 14% 22%;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.42), transparent 16%),
+    linear-gradient(180deg, #f7eefb, #d9caf4 46%, #c4afe8 100%);
+  box-shadow:
+    inset 0 10px 18px rgba(255,255,255,0.55),
+    inset 0 -12px 18px rgba(170, 145, 216, 0.35),
+    0 12px 20px rgba(187, 168, 217, 0.25);
+  transform: skewX(-8deg) rotate(6deg);
+}
+
+.girl-dress::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 18px;
+  width: 46px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #f6edf9, #d4c2ef);
+  transform: rotate(-18deg);
+}
+
+.girl-arm {
+  position: absolute;
+  right: 72px;
+  top: 56px;
+  width: 54px;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f6d7d1, #efc3b9);
+  transform: rotate(-28deg);
+  box-shadow: 0 4px 8px rgba(226, 190, 181, 0.25);
+}
+
+.girl-book {
+  position: absolute;
+  right: 38px;
+  bottom: 38px;
+  width: 74px;
+  height: 42px;
+  border-radius: 4px 8px 8px 6px;
+  background:
+    linear-gradient(90deg, #f3ebdd 0 48%, #fbf5ea 48% 52%, #f3ebdd 52%),
+    linear-gradient(180deg, #fff, #ebdeca);
+  transform: rotate(12deg);
+  box-shadow: 0 10px 14px rgba(187, 171, 160, 0.22);
+}
+
+.girl-neck {
+  position: absolute;
+  right: 86px;
+  top: 48px;
+  width: 16px;
+  height: 18px;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(180deg, #f8ddd7, #efc5ba);
+}
+
+.girl-head {
+  position: absolute;
+  right: 64px;
+  top: 10px;
+  width: 72px;
+  height: 84px;
+  border-radius: 46% 46% 44% 42%;
+  background:
+    radial-gradient(circle at 55% 54%, #9b7ce8 0 2px, transparent 3px),
+    radial-gradient(circle at 74% 54%, #9b7ce8 0 2px, transparent 3px),
+    linear-gradient(180deg, #ffe9e4, #f5cdc8);
+  box-shadow: inset 0 8px 10px rgba(255,255,255,0.4);
+}
+
+.girl-head::before {
+  content: "";
+  position: absolute;
+  left: 50px;
+  top: 52px;
+  width: 8px;
+  height: 12px;
+  border-right: 2px solid #c99496;
+  border-bottom: 2px solid #c99496;
+  border-radius: 0 0 8px 0;
+  transform: rotate(32deg);
+}
+
+.girl-head::after {
+  content: "";
+  position: absolute;
+  left: 36px;
+  top: 66px;
+  width: 16px;
+  height: 8px;
+  border-bottom: 2px solid #c58da0;
+  border-radius: 0 0 10px 10px;
+}
+
+.girl-hair {
+  position: absolute;
+  background: linear-gradient(180deg, #f8e8ff, #dcc8fb 44%, #bfa7e7 100%);
+  box-shadow: inset 0 10px 14px rgba(255,255,255,0.5);
+}
+
+.girl-hair.back {
+  right: 46px;
+  top: 0;
+  width: 106px;
+  height: 164px;
+  border-radius: 52px 52px 54px 60px;
+}
+
+.girl-hair.side {
+  right: 18px;
+  top: 58px;
+  width: 64px;
+  height: 116px;
+  border-radius: 40px 20px 52px 40px;
+  transform: rotate(14deg);
+}
+
+.girl-hair.front {
+  right: 56px;
+  top: 8px;
+  width: 78px;
+  height: 96px;
+  border-radius: 44px 38px 26px 42px;
+}
+
+.girl-braid {
+  position: absolute;
+  right: 94px;
+  top: 8px;
+  width: 18px;
+  height: 78px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 8px, #d4bef8 0 8px, transparent 9px),
+    radial-gradient(circle at 50% 24px, #ceb6f5 0 8px, transparent 9px),
+    radial-gradient(circle at 50% 40px, #c8aef3 0 8px, transparent 9px),
+    radial-gradient(circle at 50% 56px, #c2a6ef 0 8px, transparent 9px);
+}
+
+.hair-bow {
+  position: absolute;
+  right: 92px;
+  top: 34px;
+  width: 26px;
+  height: 20px;
+  background: linear-gradient(180deg, #8060ca, #4b356f);
+  clip-path: polygon(0 50%, 42% 0, 50% 46%, 58% 0, 100% 50%, 58% 100%, 50% 54%, 42% 100%);
+  filter: drop-shadow(0 4px 8px rgba(97, 78, 145, 0.25));
+}
+
+.book-glow {
+  position: absolute;
+  right: 32px;
+  bottom: 34px;
+  width: 90px;
+  height: 34px;
+  background: radial-gradient(circle, rgba(255, 236, 212, 0.75), rgba(255,236,212,0.08) 70%);
+  filter: blur(12px);
+}
+
+.bunny-wrap {
+  position: absolute;
+  inset: 48px 16px 16px;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.bunny {
+  width: 164px;
+  height: 190px;
+  position: relative;
+  filter: drop-shadow(0 14px 20px rgba(174, 145, 200, 0.28));
+}
+
+.ear {
+  position: absolute;
+  width: 48px;
+  height: 114px;
+  top: 0;
+  border-radius: 999px 999px 14px 14px;
+  background: linear-gradient(180deg, #2e2238, #1c1322);
+  border: 3px solid #1b1320;
+}
+
+.ear::after {
+  content: "";
+  position: absolute;
+  inset: 12px 11px 18px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ff94c8, #d4a2ff);
+}
+
+.ear.left {
+  left: 24px;
+  transform: rotate(-15deg);
+}
+
+.ear.right {
+  right: 24px;
+  transform: rotate(15deg);
+}
+
+.head {
+  position: absolute;
+  width: 142px;
+  height: 122px;
+  left: 11px;
+  top: 56px;
+  background: linear-gradient(180deg, #2d2237, #1f1726);
+  border-radius: 72px 72px 58px 58px;
+  border: 3px solid #1b1320;
+}
+
+.face {
+  position: absolute;
+  width: 96px;
+  height: 78px;
+  left: 23px;
+  top: 28px;
+  background: #fffdfd;
+  border-radius: 48px 48px 42px 42px;
+  box-shadow: inset 0 -8px 12px rgba(255, 214, 238, 0.35);
+}
+
+.eye {
+  position: absolute;
+  width: 8px;
+  height: 14px;
+  top: 28px;
+  background: #2d2337;
+  border-radius: 999px;
+}
+
+.eye.left { left: 28px; }
+.eye.right { right: 28px; }
+
+.nose {
+  position: absolute;
+  width: 14px;
+  height: 10px;
+  left: 41px;
+  top: 40px;
+  background: var(--pink);
+  border-radius: 50%;
+}
+
+.smile {
+  position: absolute;
+  width: 28px;
+  height: 14px;
+  left: 34px;
+  top: 52px;
+  border-bottom: 3px solid #2d2337;
+  border-radius: 0 0 30px 30px;
+}
+
+.skull {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111;
+  border: 2px solid #221927;
+  border-radius: 50% 50% 42% 42%;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.18);
+}
+
+.skull::before,
+.skull::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 12px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.skull::before { left: 8px; }
+.skull::after { right: 8px; }
+
+.skull-heart {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  background: var(--pink);
+}
+
+.skull-heart::before,
+.skull-heart::after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  background: var(--pink);
+  border-radius: 50%;
+}
+
+.skull-heart::before {
+  left: -5px;
+  top: 0;
+}
+
+.skull-heart::after {
+  top: -5px;
+  left: 0;
+}
+
+.body {
+  position: absolute;
+  width: 106px;
+  height: 74px;
+  left: 29px;
+  bottom: 0;
+  background: linear-gradient(180deg, #2d2237, #1e1525);
+  border: 3px solid #1b1320;
+  border-radius: 40px 40px 26px 26px;
+}
+
+.belly {
+  position: absolute;
+  width: 66px;
+  height: 44px;
+  left: 20px;
+  top: 14px;
+  background: #fffdfd;
+  border-radius: 50%;
+}
+
+.sparkle {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(180deg, #fff6ba, var(--yellow));
+  clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
+}
+
+.sparkle.one {
+  right: 82px;
+  top: 74px;
+}
+
+.sparkle.two {
+  left: 34px;
+  top: 188px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.rsvp-btn,
+.share-btn,
+.cta-btn {
+  min-height: 48px;
+  padding: 0 16px;
+  font-weight: 800;
+  box-shadow: 0 12px 22px rgba(255, 121, 182, 0.22);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rsvp-btn {
+  background: linear-gradient(180deg, #b392ff, #8f69f4);
+  color: white;
+  flex: 1 1 100%;
+  box-shadow: 0 14px 24px rgba(143, 105, 244, 0.28);
+}
+
+.share-btn {
+  background: linear-gradient(180deg, var(--pink), #f45fa5);
+  color: white;
+  flex: 1;
+}
+
+.ghost-btn {
+  min-height: 48px;
+  padding: 0 16px;
+  background: linear-gradient(180deg, #fff, #f5edff);
+  color: var(--text);
+  border: 1px solid rgba(155, 120, 255, 0.18);
+  font-weight: 800;
+  box-shadow: 0 12px 22px rgba(216, 197, 255, 0.22);
+  flex: 1;
+}
+
+.section {
+  margin-top: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,248,252,0.96));
+  border: 1px solid rgba(255,255,255,0.95);
+  border-radius: 28px;
+  padding: 18px 16px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 0;
+  height: 10px;
+  border-radius: 0 0 12px 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0));
+}
+
+.warm-note {
+  background: linear-gradient(180deg, #fff9ef, #fff5fb);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #4b315c;
+}
+
+.section-title p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.section-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #fff0f7, #f3eaff);
+  color: #8a58f2;
+  font-size: 22px;
+  box-shadow: 0 10px 18px rgba(228, 206, 239, 0.3);
+}
+
+.notice-card,
+.detail-card,
+.activity-card,
+.contact-card,
+.map-card {
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 24px rgba(239, 220, 240, 0.34);
+}
+
+.notice-card {
+  padding: 16px;
+  background: linear-gradient(180deg, #fffdf1, #fff7fb);
+}
+
+.notice-card strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 17px;
+  color: #8a58f2;
+}
+
+.notice-card span {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.rsvp-card {
+  background: linear-gradient(180deg, #fffefc, #f8f1ff);
+}
+
+.rsvp-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.detail-card {
+  padding: 14px;
+  background: linear-gradient(180deg, var(--card), var(--card-soft));
+  box-shadow:
+    0 12px 24px rgba(239, 220, 240, 0.34),
+    inset 0 1px 0 rgba(255,255,255,0.95),
+    inset 0 -8px 14px rgba(255, 210, 232, 0.16);
+}
+
+.detail-label {
+  color: #b55cb0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.detail-value {
+  margin-top: 8px;
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.activity-list,
+.contact-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.activity-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px;
+  background: linear-gradient(180deg, #fff9fd, #fff1f7);
+  box-shadow:
+    0 12px 24px rgba(239, 220, 240, 0.34),
+    inset 0 1px 0 rgba(255,255,255,0.92),
+    inset 0 -10px 16px rgba(255, 217, 238, 0.18);
+}
+
+.activity-time {
+  display: inline-flex;
+  margin-bottom: 7px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #efe3ff, #fbeeff);
+  color: #7a4fe0;
+  border: 1px solid rgba(155, 120, 255, 0.16);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.activity-emoji {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #fff, #f3eaff);
+  box-shadow: 0 10px 18px rgba(233, 217, 243, 0.32);
+  font-size: 20px;
+}
+
+.activity-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 16px;
+  color: #4d315b;
+}
+
+.activity-card span,
+.contact-card span {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.62;
+}
+
+.map-card {
+  padding: 14px;
+  background: linear-gradient(180deg, #fff, #fff7fb);
+  box-shadow:
+    0 12px 24px rgba(239, 220, 240, 0.34),
+    inset 0 1px 0 rgba(255,255,255,0.92),
+    inset 0 -10px 16px rgba(240, 219, 245, 0.16);
+}
+
+.mini-map {
+  height: 186px;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, transparent 48%, rgba(255,255,255,0.55) 48% 52%, transparent 52%),
+    linear-gradient(0deg, transparent 46%, rgba(255,255,255,0.55) 46% 54%, transparent 54%),
+    radial-gradient(circle at 20% 30%, #cfe8b1 0 18%, transparent 19%),
+    radial-gradient(circle at 76% 56%, #bfdca5 0 16%, transparent 17%),
+    linear-gradient(180deg, #fff6e8, #f9ecff);
+  border: 1px solid rgba(155, 120, 255, 0.14);
+}
+
+.mini-map::before,
+.mini-map::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+}
+
+.mini-map::before {
+  width: 130px;
+  height: 26px;
+  background: rgba(181, 92, 176, 0.16);
+  transform: rotate(-28deg);
+  left: -12px;
+  top: 96px;
+}
+
+.mini-map::after {
+  width: 150px;
+  height: 30px;
+  background: rgba(123, 170, 235, 0.18);
+  transform: rotate(36deg);
+  right: -26px;
+  top: 68px;
+}
+
+.map-pin {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50% 50% 50% 0;
+  rotate: -45deg;
+  background: linear-gradient(180deg, var(--pink), #f45fa5);
+  box-shadow: 0 14px 24px rgba(255, 121, 182, 0.3);
+}
+
+.map-pin::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  top: 19px;
+  left: 19px;
+}
+
+.map-label {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(155, 120, 255, 0.18);
+  color: #6f48d7;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(155, 120, 255, 0.22), transparent);
+  margin: 16px 0;
+}
+
+.contact-card {
+  padding: 14px;
+  background: linear-gradient(180deg, #fffefb, #fff3f8);
+  box-shadow:
+    0 12px 24px rgba(239, 220, 240, 0.34),
+    inset 0 1px 0 rgba(255,255,255,0.92);
+}
+
+.contact-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: #4d315b;
+}
+
+.map-actions,
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.map-actions {
+  margin-top: 14px;
+}
+
+.cta-btn {
+  background: linear-gradient(180deg, var(--purple), #7e59ea);
+  color: white;
+  flex: 1;
+}
+
+.mini-btn {
+  min-height: 48px;
+  padding: 0 14px;
+  background: linear-gradient(180deg, #fff, #f3eaff);
+  color: var(--text);
+  border: 1px solid rgba(155, 120, 255, 0.18);
+  box-shadow: 0 12px 22px rgba(216, 197, 255, 0.18);
+}
+
+.floating-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: min(398px, calc(100vw - 24px));
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  padding: 8px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255,255,255,0.95);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 36px rgba(210, 182, 220, 0.34);
+  z-index: 10;
+}
+
+.tab-btn {
+  min-height: 48px;
+  background: transparent;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 4px;
+}
+
+.tab-btn.active {
+  background: linear-gradient(180deg, #ffe8f4, #efe5ff);
+  color: #6f48d7;
+  box-shadow: inset 0 0 0 1px rgba(155, 120, 255, 0.12);
+}
+
+.tab-emoji {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.tab-text {
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.footer-note {
+  margin-top: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-note strong {
+  color: #8a58f2;
+}
+
+@media (max-width: 360px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-title-row {
+    font-size: 24px;
+    gap: 6px;
+  }
+
+  .hero-turning {
+    font-size: 15px;
+  }
+
+  .hero-copy {
+    padding-right: 0;
+  }
+
+  .hero-actions,
+  .map-actions {
+    flex-direction: column;
+  }
+}
+
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+const { useEffect, useMemo, useRef, useState } = React;
+
+const inviteData = {
+  girlName: "JACQUELINE",
+  age: 9,
+  subtitle: "Join us for a dreamy birthday celebration filled with wonder, laughter, sweet surprises and magical little moments.",
+  dateLabel: "Saturday, 12 December 2026",
+  timeLabel: "2:45pm - 6:30pm",
+  venue: "Flat E, 3/F, Block 1, Grand Palisades",
+  addressEn: "FLAT E, 3/F, BLOCK 1, GRAND PALISADES, NO. 8 SHAN YIN ROAD, TAI PO, NEW TERRITORIES, HONG KONG",
+  addressZh: "新界山贤路8号大埔宝马山1座3E",
+  dressCode: "Comfy party clothes in lavender, pink, cream or soft black are perfect.",
+  homeNote: "This celebration will be held at home in Hong Kong, with a warm, cozy and relaxed atmosphere for the children to enjoy together.",
+  activities: [
+    { emoji: "🎲", time: "14:45 - 15:45", title: "PINDOU", text: "A fun game session to kick off the party." },
+    { emoji: "🎬", time: "15:45 - 16:45", title: "MOVIE", text: "A cosy movie break for everyone to relax together." },
+    { emoji: "🧸", time: "16:45 - 17:15", title: "SQUISHIES", text: "Soft, cute and playful fun time." },
+    { emoji: "🍽️", time: "17:15 - 18:00", title: "DINNER", text: "Family-style dinner at home." },
+    { emoji: "🎂", time: "18:00 - 18:15", title: "BIRTHDAY CAKE", text: "Cake, candles and birthday wishes." },
+    { emoji: "🎈", time: "18:15 - 18:30", title: "FREE PLAY", text: "A little extra time to play and enjoy the party." }
+  ],
+  mapUrl: "https://maps.google.com/?q=Flat+E+3%2FF+Block+1+Grand+Palisades+No.+8+Shan+Yin+Road+Tai+Po+Hong+Kong",
+  rsvpUrl: "https://forms.gle/replace-with-your-rsvp-form-link",
+  hostName: "Adele",
+  hostPhone: "69429985",
+  rsvpText: "Please RSVP by WhatsApp or phone.",
+  rsvpHint: "Tap the RSVP button to open the response form. Replace the placeholder link with your real Google Form URL.",
+  note: "This version has been restyled toward the dreamy lavender butterfly look of your reference image."
+};
+
+function useCuteBirthdayMusic() {
+  const audioCtxRef = useRef(null);
+  const timerRef = useRef(null);
+  const stepRef = useRef(0);
+  const bootstrappedRef = useRef(false);
+  const noiseBufferRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+
+  const arrangement = useMemo(
+    () => [
+      {
+        duration: 3.2,
+        events: [
+          { at: 0.0, notes: [523.25, 659.25], duration: 1.5, velocity: 0.05 },
+          { at: 0.42, notes: [783.99], duration: 1.05, velocity: 0.034 },
+          { at: 0.95, notes: [659.25], duration: 0.95, velocity: 0.03 },
+          { at: 0.0, notes: [261.63], duration: 2.0, velocity: 0.022 },
+          { at: 1.55, notes: [392.0], duration: 1.25, velocity: 0.018 }
+        ]
+      },
+      {
+        duration: 3.0,
+        events: [
+          { at: 0.0, notes: [587.33, 698.46], duration: 1.35, velocity: 0.048 },
+          { at: 0.45, notes: [880.0], duration: 0.92, velocity: 0.032 },
+          { at: 1.0, notes: [698.46], duration: 0.82, velocity: 0.028 },
+          { at: 0.0, notes: [293.66], duration: 1.95, velocity: 0.02 },
+          { at: 1.42, notes: [440.0], duration: 1.08, velocity: 0.018 }
+        ]
+      },
+      {
+        duration: 3.15,
+        events: [
+          { at: 0.0, notes: [659.25, 783.99], duration: 1.45, velocity: 0.05 },
+          { at: 0.48, notes: [987.77], duration: 0.96, velocity: 0.034 },
+          { at: 0.98, notes: [783.99], duration: 0.86, velocity: 0.03 },
+          { at: 0.0, notes: [329.63], duration: 2.0, velocity: 0.022 },
+          { at: 1.54, notes: [493.88], duration: 1.05, velocity: 0.018 }
+        ]
+      },
+      {
+        duration: 3.35,
+        events: [
+          { at: 0.0, notes: [698.46, 880.0], duration: 1.55, velocity: 0.05 },
+          { at: 0.52, notes: [1046.5], duration: 1.0, velocity: 0.034 },
+          { at: 1.1, notes: [880.0], duration: 0.9, velocity: 0.03 },
+          { at: 0.0, notes: [349.23], duration: 2.15, velocity: 0.022 },
+          { at: 1.7, notes: [523.25], duration: 1.08, velocity: 0.018 }
+        ]
+      },
+      {
+        duration: 3.05,
+        events: [
+          { at: 0.0, notes: [659.25, 783.99], duration: 1.35, velocity: 0.048 },
+          { at: 0.4, notes: [880.0], duration: 0.88, velocity: 0.03 },
+          { at: 0.95, notes: [783.99], duration: 0.82, velocity: 0.028 },
+          { at: 0.0, notes: [329.63], duration: 1.9, velocity: 0.02 },
+          { at: 1.45, notes: [493.88], duration: 0.95, velocity: 0.016 }
+        ]
+      },
+      {
+        duration: 3.15,
+        events: [
+          { at: 0.0, notes: [587.33, 739.99], duration: 1.45, velocity: 0.048 },
+          { at: 0.5, notes: [880.0], duration: 0.95, velocity: 0.03 },
+          { at: 1.02, notes: [739.99], duration: 0.86, velocity: 0.028 },
+          { at: 0.0, notes: [293.66], duration: 2.0, velocity: 0.02 },
+          { at: 1.55, notes: [440.0], duration: 1.0, velocity: 0.016 }
+        ]
+      },
+      {
+        duration: 3.5,
+        events: [
+          { at: 0.0, notes: [523.25, 698.46], duration: 1.65, velocity: 0.05 },
+          { at: 0.56, notes: [783.99], duration: 1.02, velocity: 0.032 },
+          { at: 1.18, notes: [698.46], duration: 0.92, velocity: 0.03 },
+          { at: 0.0, notes: [261.63], duration: 2.2, velocity: 0.022 },
+          { at: 1.82, notes: [392.0], duration: 1.1, velocity: 0.016 }
+        ]
+      },
+      {
+        duration: 3.25,
+        events: [
+          { at: 0.0, notes: [493.88, 659.25], duration: 1.5, velocity: 0.048 },
+          { at: 0.5, notes: [783.99], duration: 0.95, velocity: 0.03 },
+          { at: 1.04, notes: [659.25], duration: 0.88, velocity: 0.028 },
+          { at: 0.0, notes: [246.94], duration: 2.05, velocity: 0.02 },
+          { at: 1.6, notes: [392.0], duration: 1.02, velocity: 0.016 }
+        ]
+      }
+    ],
+    []
+  );
+
+  function getNoiseBuffer(ctx) {
+    if (noiseBufferRef.current) return noiseBufferRef.current;
+    const buffer = ctx.createBuffer(1, ctx.sampleRate * 0.03, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (data.length * 0.22));
+    }
+    noiseBufferRef.current = buffer;
+    return buffer;
+  }
+
+  function playTone(freq, when, duration, volume = 0.03) {
+    const ctx = audioCtxRef.current;
+    if (!ctx) return;
+    const noteFilter = ctx.createBiquadFilter();
+    noteFilter.type = "lowpass";
+    noteFilter.frequency.setValueAtTime(3200, when);
+    noteFilter.frequency.exponentialRampToValueAtTime(1200, when + duration * 0.6);
+    noteFilter.Q.setValueAtTime(0.7, when);
+
+    const masterGain = ctx.createGain();
+    masterGain.gain.setValueAtTime(0.0001, when);
+    masterGain.gain.linearRampToValueAtTime(volume, when + 0.012);
+    masterGain.gain.exponentialRampToValueAtTime(Math.max(volume * 0.45, 0.0001), when + duration * 0.22);
+    masterGain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
+
+    const bodyGain = ctx.createGain();
+    bodyGain.gain.setValueAtTime(0.6, when);
+    const overtoneGain = ctx.createGain();
+    overtoneGain.gain.setValueAtTime(0.18, when);
+    const hammerGain = ctx.createGain();
+    hammerGain.gain.setValueAtTime(0.12, when);
+    hammerGain.gain.exponentialRampToValueAtTime(0.0001, when + 0.025);
+
+    const body = ctx.createOscillator();
+    body.type = "sine";
+    body.frequency.setValueAtTime(freq, when);
+
+    const upper = ctx.createOscillator();
+    upper.type = "triangle";
+    upper.frequency.setValueAtTime(freq * 2, when);
+    upper.detune.setValueAtTime(3, when);
+
+    const resonance = ctx.createOscillator();
+    resonance.type = "sine";
+    resonance.frequency.setValueAtTime(freq * 3, when);
+    resonance.detune.setValueAtTime(-4, when);
+
+    const hammer = ctx.createBufferSource();
+    hammer.buffer = getNoiseBuffer(ctx);
+
+    body.connect(bodyGain);
+    upper.connect(overtoneGain);
+    resonance.connect(overtoneGain);
+    hammer.connect(hammerGain);
+
+    bodyGain.connect(masterGain);
+    overtoneGain.connect(masterGain);
+    hammerGain.connect(masterGain);
+    masterGain.connect(noteFilter);
+    noteFilter.connect(ctx.destination);
+
+    body.start(when);
+    upper.start(when);
+    resonance.start(when);
+    hammer.start(when);
+
+    body.stop(when + duration + 0.05);
+    upper.stop(when + duration + 0.04);
+    resonance.stop(when + duration + 0.03);
+    hammer.stop(when + 0.03);
+  }
+
+  function playStep(step) {
+    const ctx = audioCtxRef.current;
+    if (!ctx) return;
+    const now = ctx.currentTime + 0.02;
+    step.events.forEach(event => {
+      event.notes.forEach((freq, index) => {
+        playTone(freq, now + event.at + index * 0.035, event.duration, Math.max(event.velocity - index * 0.006, 0.012));
+      });
+    });
+  }
+
+  async function start() {
+    const Ctx = window.AudioContext || window["webkitAudioContext"];
+    if (!Ctx) return false;
+    if (!audioCtxRef.current) audioCtxRef.current = new Ctx();
+    const ctx = audioCtxRef.current;
+    if (ctx.state === "suspended") {
+      try {
+        await ctx.resume();
+      } catch (error) {
+        return false;
+      }
+    }
+    if (ctx.state === "suspended") return false;
+    if (timerRef.current) window.clearTimeout(timerRef.current);
+    stepRef.current = 0;
+
+    const queueNext = () => {
+      const step = arrangement[stepRef.current % arrangement.length];
+      playStep(step);
+      stepRef.current += 1;
+      timerRef.current = window.setTimeout(queueNext, step.duration * 1000);
+    };
+
+    queueNext();
+    setPlaying(true);
+    bootstrappedRef.current = true;
+    return true;
+  }
+
+  function stop() {
+    if (timerRef.current) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    setPlaying(false);
+  }
+
+  function toggle() {
+    if (playing) stop();
+    else start();
+  }
+
+  useEffect(() => {
+    start();
+
+    const ensureMusic = () => {
+      if (!bootstrappedRef.current) start();
+    };
+
+    window.addEventListener("pointerdown", ensureMusic, { once: true });
+    window.addEventListener("touchstart", ensureMusic, { once: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", ensureMusic);
+      window.removeEventListener("touchstart", ensureMusic);
+      stop();
+    };
+  }, []);
+
+  return { playing, toggle };
+}
+
+function App() {
+  const sections = {
+    top: useRef(null),
+    rsvp: useRef(null),
+    details: useRef(null),
+    fun: useRef(null),
+    map: useRef(null)
+  };
+  const [activeTab, setActiveTab] = useState("top");
+  const { playing, toggle } = useCuteBirthdayMusic();
+
+  useEffect(() => {
+    const refs = Object.entries(sections);
+    const observer = new IntersectionObserver(
+      entries => {
+        const visible = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveTab(visible.target.dataset.section);
+      },
+      { threshold: [0.35, 0.5, 0.8] }
+    );
+
+    refs.forEach(([, ref]) => ref.current && observer.observe(ref.current));
+    return () => observer.disconnect();
+  }, []);
+
+  function scrollToSection(key) {
+    const node = sections[key]?.current;
+    if (!node) return;
+    node.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function buildShareText() {
+    return [
+      `${inviteData.girlName}'s ${inviteData.age}th Birthday Invitation`,
+      `${inviteData.dateLabel} ${inviteData.timeLabel}`,
+      `${inviteData.venue}`,
+      window.location.href
+    ].join("\n");
+  }
+
+  async function shareInvite() {
+    const text = buildShareText();
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${inviteData.girlName}'s Birthday Invitation`,
+          text,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {}
+    }
+    openWhatsapp();
+  }
+
+  function openWhatsapp() {
+    const text = encodeURIComponent(buildShareText());
+    window.open(`https://wa.me/?text=${text}`, "_blank");
+  }
+
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("Link copied. You can now paste it into WhatsApp.");
+    } catch (error) {
+      alert("Copy failed. Please copy the page URL manually.");
+    }
+  }
+
+  return (
+    <div className="invite-app">
+      <div className="bg-stars" />
+      <div className="bg-balloons" aria-hidden="true">
+        <div className="bg-balloon bg-balloon-1" />
+        <div className="bg-balloon bg-balloon-2" />
+        <div className="bg-balloon bg-balloon-3" />
+        <div className="bg-balloon bg-balloon-4" />
+        <div className="bg-balloon bg-balloon-5" />
+      </div>
+      <div className="dream-border" aria-hidden="true">
+        <div className="frame-corner tl" />
+        <div className="frame-corner tr" />
+        <div className="frame-corner bl" />
+        <div className="frame-corner br" />
+        <div className="frame-balloon fb1" />
+        <div className="frame-balloon fb2" />
+        <div className="frame-balloon fb3" />
+        <div className="frame-balloon fb4" />
+        <div className="frame-balloon fb5" />
+        <div className="frame-balloon fb6" />
+        <div className="frame-bow b1" />
+        <div className="frame-bow b2" />
+      </div>
+
+      <section className="hero" ref={sections.top} data-section="top">
+        <div className="hero-shell">
+          <div className="hero-ribbon">Jacqueline's Dreamy Birthday Party</div>
+
+          <div className="hero-top">
+          <div className="badge">Joyful Moments With Friends</div>
+            <button className="music-btn" onClick={toggle}>
+              {playing ? "Pause Music" : "Play Music"}
+            </button>
+          </div>
+
+          <div className="hero-grid">
+            <div className="hero-copy">
+              <div className="eyebrow">You Are Invited</div>
+              <h1 className="hero-title hero-title-row">
+                <span className="hero-name">{inviteData.girlName}</span>
+                <span className="hero-turning">IS TURNING</span>
+                <span className="hero-age">{inviteData.age}</span>
+              </h1>
+              <p className="hero-subtitle">{inviteData.subtitle}</p>
+
+              <div className="pill-list">
+                <div className="pill">Joyful Time Together</div>
+                <div className="pill">Dreamy Lavender Mood</div>
+                <div className="pill">WhatsApp Friendly</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="hero-actions">
+            <a className="rsvp-btn" href={inviteData.rsvpUrl} target="_blank" rel="noreferrer">RSVP NOW</a>
+            <button className="share-btn" onClick={shareInvite}>Share on WhatsApp</button>
+            <button className="ghost-btn" onClick={copyLink}>Copy Link</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="section warm-note">
+        <div className="section-title">
+          <div>
+            <h2>A Warm Little Note</h2>
+            <p>A small home celebration with a softer, more storybook feeling.</p>
+          </div>
+          <div className="section-icon">🏠</div>
+        </div>
+        <div className="notice-card">
+          <strong>Home Sweet Birthday</strong>
+          <span>{inviteData.homeNote}</span>
+        </div>
+      </section>
+
+      <section className="section" ref={sections.rsvp} data-section="rsvp">
+        <div className="section-title">
+          <div>
+            <h2>RSVP</h2>
+            <p>Please fill in the response form so we can prepare for each guest.</p>
+          </div>
+          <div className="section-icon">💌</div>
+        </div>
+        <div className="notice-card rsvp-card">
+          <strong>RSVP - Jacqueline's Birthday Party</strong>
+          <span>{inviteData.rsvpHint}</span>
+          <div className="rsvp-actions">
+            <a className="cta-btn" href={inviteData.rsvpUrl} target="_blank" rel="noreferrer">Open RSVP Form</a>
+            <button className="mini-btn" onClick={copyLink}>Copy Invite Link</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" ref={sections.details} data-section="details">
+        <div className="section-title">
+          <div>
+            <h2>Party Details</h2>
+            <p>Designed to look lovely on a phone and easy to forward to family and friends.</p>
+          </div>
+          <div className="section-icon">🎂</div>
+        </div>
+
+        <div className="detail-grid">
+          <div className="detail-card">
+            <div className="detail-label">Date</div>
+            <div className="detail-value">{inviteData.dateLabel}</div>
+          </div>
+          <div className="detail-card">
+            <div className="detail-label">Time</div>
+            <div className="detail-value">{inviteData.timeLabel}</div>
+          </div>
+          <div className="detail-card full">
+            <div className="detail-label">Venue</div>
+            <div className="detail-value">{inviteData.venue}</div>
+          </div>
+          <div className="detail-card full">
+            <div className="detail-label">Address</div>
+            <div className="detail-value">{inviteData.addressEn}</div>
+          </div>
+          <div className="detail-card full">
+            <div className="detail-label">地址</div>
+            <div className="detail-value">{inviteData.addressZh}</div>
+          </div>
+          <div className="detail-card full">
+            <div className="detail-label">Dress Code</div>
+            <div className="detail-value">{inviteData.dressCode}</div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" ref={sections.fun} data-section="fun">
+        <div className="section-title">
+          <div>
+            <h2>Party Schedule</h2>
+            <p>Here is the plan for Jacqueline's 9th birthday celebration.</p>
+          </div>
+          <div className="section-icon">✨</div>
+        </div>
+
+        <div className="activity-list">
+          {inviteData.activities.map(item => (
+            <div className="activity-card" key={item.title}>
+              <div className="activity-emoji">{item.emoji}</div>
+              <div>
+                <div className="activity-time">{item.time}</div>
+                <strong>{item.title}</strong>
+                <span>{item.text}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section" ref={sections.map} data-section="map">
+        <div className="section-title">
+          <div>
+            <h2>How To Get Here</h2>
+            <p>Tap below to open the location in Google Maps.</p>
+          </div>
+          <div className="section-icon">📍</div>
+        </div>
+
+        <div className="map-card">
+          <div className="mini-map">
+            <div className="map-pin" />
+            <div className="map-label">Birthday Party Spot</div>
+          </div>
+
+          <div className="divider" />
+
+          <div className="contact-grid">
+            <div className="contact-card">
+              <strong>Location</strong>
+              <span>{inviteData.venue}<br />{inviteData.addressEn}<br />{inviteData.addressZh}</span>
+            </div>
+            <div className="contact-card">
+              <strong>RSVP</strong>
+              <span>{inviteData.rsvpText}<br />Contact: {inviteData.hostName} / {inviteData.hostPhone}<br />Form: {inviteData.rsvpUrl}</span>
+            </div>
+          </div>
+
+          <div className="map-actions">
+            <a className="cta-btn" href={inviteData.mapUrl} target="_blank" rel="noreferrer">Open Map</a>
+            <button className="mini-btn" onClick={openWhatsapp}>Send to WhatsApp</button>
+          </div>
+        </div>
+      </section>
+
+      <div className="footer-note">
+        <strong>Note:</strong> Once this page is published to a public URL, you can share it directly through WhatsApp.<br />
+        {inviteData.note}
+      </div>
+
+      <nav className="floating-bar">
+        <button className={`tab-btn ${activeTab === "top" ? "active" : ""}`} onClick={() => scrollToSection("top")}>
+          <span className="tab-emoji">🖤</span>
+          <span className="tab-text">Home</span>
+        </button>
+        <button className={`tab-btn ${activeTab === "rsvp" ? "active" : ""}`} onClick={() => scrollToSection("rsvp")}>
+          <span className="tab-emoji">💌</span>
+          <span className="tab-text">RSVP</span>
+        </button>
+        <button className={`tab-btn ${activeTab === "details" ? "active" : ""}`} onClick={() => scrollToSection("details")}>
+          <span className="tab-emoji">🎂</span>
+          <span className="tab-text">Details</span>
+        </button>
+        <button className={`tab-btn ${activeTab === "fun" ? "active" : ""}`} onClick={() => scrollToSection("fun")}>
+          <span className="tab-emoji">✨</span>
+          <span className="tab-text">Plan</span>
+        </button>
+        <button className={`tab-btn ${activeTab === "map" ? "active" : ""}`} onClick={() => scrollToSection("map")}>
+          <span className="tab-emoji">📍</span>
+          <span className="tab-text">Map</span>
+        </button>
+      </nav>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+
+</script>
+</body>
+</html>
