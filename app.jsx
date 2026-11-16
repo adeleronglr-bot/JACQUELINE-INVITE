@@ -294,9 +294,9 @@ function App() {
     ];
     if (guestName) lines.push(`Invited guest: ${guestName}`);
     lines.push(`Child's name: ${childName || "-"}`);
-    lines.push(`Will your child attend the party: ${attending === "yes" ? "Yes" : "No"}`);
+    lines.push(`Will your child attend the party: ${attending === "yes" ? "Yes, we'll be there." : "Sorry, can't make it."}`);
     if (attending === "yes") {
-      lines.push(`Food/nut allergies or special dietary needs: ${allergies.trim() || "None"}`);
+      lines.push(`Food or nut allergies, or special dietary needs: ${allergies.trim() || "None"}`);
       lines.push(`Arrangement: ${arrangement === "stay" ? "Parent will stay" : arrangement === "dropoff" ? "Drop-off only" : "-"}`);
     }
     if (notes.trim()) lines.push(`Anything else we should know: ${notes.trim()}`);
@@ -493,14 +493,14 @@ function App() {
                   className={`attend-btn ${attending === "yes" ? "active" : ""}`}
                   onClick={() => setAttending("yes")}
                 >
-                  Yes ✨
+                  Yes, we'll be there. ✨
                 </button>
                 <button
                   type="button"
                   className={`attend-btn ${attending === "no" ? "active" : ""}`}
                   onClick={() => setAttending("no")}
                 >
-                  No
+                  Sorry, can't make it.
                 </button>
               </div>
             </div>
@@ -508,7 +508,7 @@ function App() {
             {attending === "yes" && (
               <>
                 <label className="field">
-                  <span className="field-label">Any food/nut allergies or special dietary needs?</span>
+                  <span className="field-label">Any food or nut allergies, or special dietary needs?</span>
                   <input
                     type="text"
                     className="field-input"
