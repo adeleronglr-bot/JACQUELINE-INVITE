@@ -5,20 +5,19 @@ const inviteData = {
   age: 9,
   subtitle: "Join us for a dreamy birthday celebration filled with wonder, laughter, sweet surprises and magical little moments.",
   dateLabel: "Saturday, 12 December 2026",
-  timeLabel: "2:30pm - 6:30pm",
-  venue: "Flat E, 3/F, Block 1, Grand Palisades",
-  addressEn: "FLAT E, 3/F, BLOCK 1, GRAND PALISADES, NO. 8 SHAN YIN ROAD, TAI PO, NEW TERRITORIES, HONG KONG",
-  addressZh: "新界山贤路8号大埔宝马山1座3E",
+  timeLabel: "2:30pm - 5:30pm",
+  venue: "Kiztopia, New Town Plaza",
+  addressEn: "SHOP LB08-09, LB/F, PLAY PARK, PHASE 1, NEW TOWN PLAZA, SHA TIN, NEW TERRITORIES, HONG KONG",
+  addressZh: "新界沙田新城市广场1期LB层Play Park LB08-09号铺（Kiztopia）",
   dressCode: "Comfy party clothes in Lavender are perfect.",
   activities: [
-    { emoji: "🎲", time: "14:45 - 15:45", title: "PINDOU", text: "A fun game session to kick off the party." },
-    { emoji: "🎬", time: "15:45 - 16:45", title: "MOVIE", text: "A cosy movie break for everyone to relax together." },
-    { emoji: "🧸", time: "16:45 - 17:15", title: "SQUISHIES", text: "Soft, cute and playful fun time." },
-    { emoji: "🍽️", time: "17:15 - 18:00", title: "DINNER", text: "Family-style dinner at home." },
-    { emoji: "🎂", time: "18:00 - 18:15", title: "BIRTHDAY CAKE", text: "Cake, candles and birthday wishes." },
-    { emoji: "🎈", time: "18:15 - 18:30", title: "FREE PLAY", text: "A little extra time to play and enjoy the party." }
+    { emoji: "🎈", time: "14:30 - 14:40", title: "ARRIVAL & WARM-UP", text: "Please arrive on time!" },
+    { emoji: "🛝", time: "14:40 - 16:15", title: "FREE PLAY AT KIZTOPIA", text: "Explore and play at the indoor play park." },
+    { emoji: "🪻", time: "16:15 - 16:30", title: "DIY PERFUME", text: "Lavender-themed DIY perfume session." },
+    { emoji: "🎂", time: "16:30 - 17:00", title: "BIRTHDAY CAKE & PHOTOS", text: "Cake, candles and group photos." },
+    { emoji: "🎁", time: "17:00 - 17:30", title: "PLAYTIME & PARTY FAVORS", text: "More playtime and party favors." }
   ],
-  mapUrl: "https://maps.google.com/?q=Flat+E+3%2FF+Block+1+Grand+Palisades+No.+8+Shan+Yin+Road+Tai+Po+Hong+Kong",
+  mapUrl: "https://maps.google.com/?q=Kiztopia+New+Town+Plaza+Phase+1+Sha+Tin+Hong+Kong",
   hostName: "Adele",
   hostPhone: "69429985",
   rsvpText: "Please reply on WhatsApp.",
@@ -589,6 +588,10 @@ function App() {
             <div className="detail-label">Dress Code</div>
             <div className="detail-value">{inviteData.dressCode}</div>
           </div>
+          <div className="detail-card full">
+            <div className="detail-label">Friendly Reminder</div>
+            <div className="detail-value">Grip socks are required for both kids and adults.</div>
+          </div>
         </div>
       </section>
 
@@ -596,7 +599,7 @@ function App() {
         <div className="section-title">
           <div>
             <h2>Party Schedule</h2>
-            <p>Guests are welcome from 2:30pm for a warm-up before activities begin at 2:45pm.</p>
+            <p>Guests are welcome from 2:30pm — please arrive on time for the warm-up!</p>
           </div>
           <div className="section-icon">✨</div>
         </div>
