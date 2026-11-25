@@ -11,11 +11,11 @@ const inviteData = {
   addressZh: "新界沙田新城市广场1期LB层Play Park LB08-09号铺（Kiztopia）",
   dressCode: "Comfy party clothes in Lavender are perfect.",
   activities: [
-    { emoji: "🎈", time: "14:30 - 14:40", title: "ARRIVAL & WARM-UP", text: "Please arrive on time!" },
-    { emoji: "🛝", time: "14:40 - 16:15", title: "FREE PLAY AT KIZTOPIA", text: "Explore and play at the indoor play park." },
-    { emoji: "🪻", time: "16:15 - 16:30", title: "DIY PERFUME", text: "Lavender-themed DIY perfume session." },
-    { emoji: "🎂", time: "16:30 - 17:00", title: "BIRTHDAY CAKE & PHOTOS", text: "Cake, candles and group photos." },
-    { emoji: "🎁", time: "17:00 - 17:30", title: "PLAYTIME & PARTY FAVORS", text: "More playtime and party favors." }
+    { emoji: "🎈", time: "14:30 - 14:40", title: "ARRIVAL & CHECK-IN", text: "Please arrive on time!" },
+    { emoji: "🪻", time: "14:40 - 14:50", title: "DIY PERFUME", text: "Lavender-themed DIY perfume session." },
+    { emoji: "🛝", time: "14:50 - 16:40", title: "FREE PLAY AT KIZTOPIA", text: "Explore and play at the indoor play park." },
+    { emoji: "🎂", time: "16:40 - 17:10", title: "BIRTHDAY CAKE & PHOTOS", text: "Cake, candles and group photos." },
+    { emoji: "🎁", time: "17:10 - 17:30", title: "PLAYTIME & PARTY FAVORS", text: "More playtime and party favors." }
   ],
   mapUrl: "https://maps.google.com/?q=Kiztopia+New+Town+Plaza+Phase+1+Sha+Tin+Hong+Kong",
   hostName: "Adele",
@@ -599,7 +599,7 @@ function App() {
         <div className="section-title">
           <div>
             <h2>Party Schedule</h2>
-            <p>Guests are welcome from 2:30pm — please arrive on time for the warm-up!</p>
+            <p>Guests are welcome from 2:30pm — please arrive on time for check-in!</p>
           </div>
           <div className="section-icon">✨</div>
         </div>
